@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">-->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <title>To Do List</title>
+</head>
+<body>
+<div id="app">
+
+    <h1 style="text-align: center">To Do List</h1>
+
+    <br>
+
+    <h3 style="text-align: center; color: #0f6674">Please write down</h3>
+
+    <section class="input_area">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="content_1">
+                        <input v-model ="newItem" v-on:keyup.enter="addItem" placeholder="Enter tasks">
+                        <input v-model ="newTime" type="time" v-on:keyup.enter="addItem">
+                        <input v-model ="newDate" type="date" v-on:keyup.enter="addItem">
+                        <span><button  class="btn-success" @click.prevent="addItem">Submit</button></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="information_area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table-bordered" style="width: 100%" id="information_table">
+                    <!--<table class="d" id="information_table">-->
+                        <tr>
+                            <th style="text-align: center">Task Details</th>
+                            <th style="text-align: center">Scheduled Time</th>
+                            <th style="text-align: center">Date</th>
+
+                        </tr>
+                        <tr>
+                            <td>
+
+
+                                <p class="text-center" v-if="!lists.length"> {{test5}}</p>
+
+                                <ul  v-else v-for="list in lists"  v-bind:key="list.id">
+                                    <li style="list-style: none; text-align: center">{{list.item}}</li>
+                                </ul>
+
+
+                            </td>
+
+                            <td>
+                                <p class="text-center" v-if="!lists.length"> {{test6}}</p>
+                                <ul v-else v-for="list in lists"  v-bind:key="list.id">
+                                    <li style="list-style: none; text-align: center">{{list.userTime}}</li>
+                                </ul>
+
+                            </td>
+
+
+                            <td>
+                                <p class="text-center" v-if="!lists.length"> {{test7}}</p>
+                                <ul v-for="list in lists" v-bind:key="list.id">
+                                    <li style="list-style: none;text-align: center">{{list.date}} </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+</body>
+
+<!--<script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>-->
+<script src="js/vue.js"></script>
+<script>
+var app = new Vue({
+    el: '#app',
+    data: {
+
+        lists:[
+        ],
+
+        test5:'No task set yet',
+        test6:'No  time set yet',
+        test7:'No date set yet',
+
+        newItem:'',
+        newTime:'',
+        newDate:'',
+    },
+
+    methods:{
+        addItem:function(){
+            let  id = this.lists.length + 1
+
+            if((this.newItem !=='' && this.newDate !=='') && this.newTime){
+
+                // const newList = {id:id,item:this.newItem}
+                const newList = {id:id,item:this.newItem,date:this.newDate,userTime:this.newTime}
+
+                this.lists.push(newList)
+
+                this.newItem =''
+
+            }
+
+
+        },
+
+
+    }
+
+
+})
+
+
+</script>
+
+
+
+
+</html>
